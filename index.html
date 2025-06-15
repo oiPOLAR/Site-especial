@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bloco de Notas Gatinho</title>
+
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>       
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6B7280',
+            secondary: '#9CA3AF'
+          },
+          borderRadius: {
+            'none': '0px',
+            'sm': '4px',
+            DEFAULT: '8px',
+            'md': '12px',
+            'lg': '16px',
+            'xl': '20px',
+            '2xl': '24px',
+            '3xl': '32px',
+            'full': '9999px',
+            'button': '8px'
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Fonte fofinha -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">       
+  <link rel="preconnect" href="https://fonts.gstatic.com"        crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+  <!-- Ícones Remixicon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+
+  <!-- CSS Externo -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="w-full h-screen flex items-center justify-center overflow-hidden locked">
+
+  <!-- Tela de Bloqueio -->
+  <div id="lockScreen" class="absolute inset-0 bg-gray-100 z-50 flex flex-col items-center justify-center p-4">
+    
+    <!-- Imagem que muda quando há erro ou segredo -->
+    <img 
+      id="lockImage"
+      src="https://i.imgur.com/D2erEpY.png" 
+      alt="Coruja fofa"
+      class="w-24 h-auto mb-6 animate-bounce-slow lock-image"
+    />
+
+    <!-- Campo de senha -->
+    <div class="relative w-64 mb-4">
+      <input 
+        type="text" 
+        id="passwordInput"
+        maxlength="8"
+        placeholder="Digite sua senha..."
+        class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-inner text-center text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+      />
+      <p id="errorMessage" class="text-red-500 text-xs mt-2 hidden">SENHA ERRADA, SE NÃO SABE TCHAU</p>
+    </div>
+
+    <!-- Botão de verificar -->
+    <button id="checkPassword" class="bg-primary hover:bg-gray-600 text-white px-5 py-1 rounded-lg shadow-md transition duration-300 transform hover:scale-105">
+      Verificar
+    </button>
+
+    <!-- Dica no canto superior direito -->
+    <div class="absolute top-4 right-4 group cursor-pointer">
+      <div class="relative">
+        <i class="ri-question-line text-xl text-gray-500 group-hover:text-gray-700 transition duration-300"></i>
+        <div class="hidden group-hover:flex absolute top-0 right-8 bg-primary text-white text-xs rounded p-2 whitespace-nowrap z-20">
+          "pessoa mais importante pra mim que eu amo MUITO!"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Animação de entrada -->
+  <div id="entranceAnimation" class="hidden absolute inset-0 z-[70] flex items-center justify-center pointer-events-none">
+    <i id="flyingHeart" class="ri-heart-fill text-red-500 text-6xl opacity-0 scale-75"></i>
+  </div>
+
+  <!-- Site Principal - SEM BUGS -->
+  <div id="mainSite" class="hidden relative w-[762px] h-[762px] bg-white overflow-hidden rounded-3xl shadow-xl cat-container">
+
+    <!-- Music Player -->
+    <div class="music-player">
+      <div id="song-title" class="text-sm font-medium mb-1 text-gray-800">Aquela Canção</div>
+      <div class="progress-bar">
+        <div class="progress"></div>
+      </div>
+      <div class="flex justify-between items-center">
+        <div class="w-8 h-8 flex items-center justify-center cursor-pointer">
+          <i class="ri-skip-back-fill ri-lg text-primary"></i>
+        </div>
+        <div id="play-button" class="w-10 h-10 flex items-center justify-center bg-primary rounded-full cursor-pointer">
+          <i class="ri-pause-fill ri-lg text-white"></i>
+        </div>
+        <div class="w-8 h-8 flex items-center justify-center cursor-pointer">
+          <i class="ri-skip-forward-fill ri-lg text-primary"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quadro com fundo branco e scroll interno -->
+    <div class="absolute top-[55%] left-[14%] w-[66%] max-h-[188px] bg-white p-4 rounded-lg overflow-y-auto scrollbar-thin z-10">
+      <div class="flex items-start gap-2">
+        <i class="ri-heart-fill text-black text-xl mt-1"></i>
+        <p class="text-sm text-gray-800 leading-relaxed break-words whitespace-pre-line">
+𝗢𝗶𝗶 𝘃𝗶𝗱𝗮... 𝗙𝗲𝗹𝗶𝘇 𝗱𝗶𝗮 𝗱𝗼𝘀 𝗻𝗮𝗺𝗼𝗿𝗮𝗱𝗼𝘀, 𝘃𝗰 𝗻𝗮̃𝗼 𝘁𝗮 𝗮𝗾𝘂𝗶 𝗱𝗼 𝗺𝗲𝘂 𝗹𝗮𝗱𝗼 𝗽𝗿𝗮 𝗲𝘀𝘀𝗲 𝗱𝗶𝗮 𝘀𝗲𝗿 𝗿𝗲𝗮𝗹𝗺𝗲𝗻𝘁𝗲 𝗽𝗲𝗳𝗲𝗶𝘁𝗼, 𝗺𝗮𝗶𝘀 𝗺𝗲𝘀𝗺𝗼 𝗻𝗮 𝗱𝗶𝘀𝘁𝗮𝗻𝗰𝗶𝗮 𝗲𝘀𝘀𝗲 𝗱𝗶𝗮 𝗲 𝗺𝘂𝗶𝘁𝗼 𝗲𝘀𝗽𝗲𝗰𝗶𝗮𝗹 𝗽𝗼𝗿 𝗾𝘂𝗲 𝘁𝗲𝗻𝗵𝗼 𝗮𝗹𝗴𝘂𝗲𝗺 𝗽𝗿𝗮 𝗰𝗵𝗮𝗺𝗮𝗿 𝗱𝗲 𝘃𝗶𝗱𝗮 𝗻𝗲𝘀𝘀𝗲 𝗱𝗶𝗮 𝗲𝘀𝗽𝗲𝗰𝗶𝗮𝗹 𝗲 𝘂𝗻𝗶𝗰𝗼, 𝗲 𝗲𝘀𝘀𝗮 𝗽𝗲𝘀𝘀𝗼𝗮 𝗲 𝘃𝗰... 𝗔 𝗺𝗲𝗻𝗶𝗻𝗮 𝗺𝗮𝗶𝘀 𝗟𝗜𝗡𝗗𝗔𝗔𝗔𝗔𝗔𝗔 𝗾𝘂𝗲 𝗲𝘂 𝗷𝗮 𝘃𝗶 𝗰𝗼𝗺 𝗼𝘀 𝗺𝗲𝘂𝘀 𝘇𝗼𝗶𝗼𝘀 :𝗽 𝗲 𝗮 𝗽𝗲𝘀𝘀𝗼𝗮 𝗺𝗮𝗶𝘀 𝗶𝗻𝗰𝗿𝗶𝘃𝗲𝗹 𝗾𝘂𝗲 𝗮𝗽𝗮𝗿𝗲𝗰𝗲𝘂 𝗻𝗮 𝗺𝗶𝗻𝗵𝗮 𝘃𝗶𝗱𝗮... 𝗣𝗼𝗿 𝘀𝘂𝗮 𝗰𝘂𝗹𝗽𝗮 𝗱𝗲𝗶 𝘃𝗮𝗿𝗶𝗼𝘀 𝘀𝗼𝗿𝗿𝗶𝘇𝗼𝘀, 𝗲𝘀𝘀𝗲 𝗺𝗲𝘀𝗲𝘀 𝗾𝘂𝗲 𝗲𝘂 𝘁𝗶𝘃𝗲 𝗰𝗼𝗺 𝘃𝗰 𝗳𝗼𝗶 𝗼𝘀 𝗺𝗮𝗶𝘀 𝗽𝗲𝗿𝗳𝗲𝗶𝘁𝗼𝘀 𝗾𝘂𝗲 𝗲𝘂 𝗷𝗮 𝘁𝗶𝘃𝗲 ♥︎... 𝗥𝗲𝘀𝘂𝗺𝗶𝗻𝗱𝗼 𝘁𝗲 𝗮𝗺𝗼 𝗺𝘂𝗶𝘁𝗼 𝗺𝗶𝗻𝗵𝗮 𝗹𝗶𝗻𝗱𝗮...𝗺𝗶𝗻𝗵𝗮 𝘃𝗶𝗱𝗮...𝗺𝗶𝗻𝗵𝗮 𝗿𝗮𝘇𝗮̃𝗼 𝗱𝗲 𝘀𝗼𝗿𝗿𝗶𝗿...𝗲 𝗲́ 𝗶𝘀𝘀𝗼 𝗻 𝘀𝗼 𝗺𝘂𝗶𝘁𝗼 𝗯𝗼𝗺 𝗲𝗺 𝗲𝘀𝗰𝗿𝗲𝘃𝗲𝗿 𝘁𝗲𝘅𝘁𝗼 𝗶𝗴𝘂𝗮𝗹 𝘃𝗰 𝘂𝗺𝗮 𝗲𝘀𝗰𝗿𝗶𝘁𝗼𝗿𝗮 𝗽𝗿𝗼𝗳𝗶𝗰𝗶𝗼𝗻𝗮𝗹 𝗺𝗮𝗶𝘀 𝗳𝗶𝘇 𝗰𝗼𝗺 𝗰𝗮𝗿𝗶𝗻𝗵𝗼 ♥︎♥︎... 𝗘𝘀𝗽𝗲𝗿𝗼 𝗾𝘂𝗲 𝗴𝗼𝘀𝘁𝗲 𝘃𝗶𝗱𝗮 :3 𝗩𝗖 𝗘 𝗜𝗡𝗖𝗥𝗜𝗩𝗘𝗟 𝗘 𝗨𝗡𝗜𝗖𝗔 𝗘 𝗘 𝗟𝗜𝗡𝗗𝗔 𝗗𝗘 𝗠𝗔𝗜𝗦... 𝗘 𝗠𝗨𝗜𝗧𝗢 𝗚𝗢𝗦𝗧𝗢𝗭𝗔 ... 𝗧𝗜 𝗔𝗠𝗨 𝗠𝗨𝗜𝗧𝗢𝗢𝗢 𝗠𝗘𝗦𝗠𝗢♥︎♥︎♥︎♥︎♥︎
+        </p>
+      </div>
+    </div>
+
+    <!-- Adesivos -->
+    <img 
+      src="https://i.imgur.com/cdjpBMc.png"     
+      alt="Adesivo Top Right"
+      class="sticker top-right"
+    >
+    <img 
+      src="https://i.imgur.com/lqmiXN6.png"     
+      alt="Adesivo Bottom Right"
+      class="sticker bottom-right"
+    >
+    <img 
+      src="https://i.imgur.com/D2erEpY.png"     
+      alt="Adesivo Left Middle"
+      class="sticker left-middle"
+    >
+
+    <!-- NOVO ADÉSIVO CENTRALIZADO -->
+    <img 
+      src="https://i.imgur.com/efpfkg1.png" 
+      alt="Adesivo Central - Coração"
+      class="sticker center-heart"
+    >
+
+  </div>
+
+  <audio id="audioPlayer" preload="auto"></audio>
+
+  <!-- JS Externo -->
+  <script defer src="script.js"></script>
+</body>
+</html>
