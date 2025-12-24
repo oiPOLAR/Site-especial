@@ -6,7 +6,6 @@
 
 <html>
   <body>
-    <script>alert('Oi!')</script>
     <audio autoplay src="audio.mp3"></audio>
   </body>
 </html>
