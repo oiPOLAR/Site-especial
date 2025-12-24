@@ -2,4 +2,4 @@
 ░█░█░█▀▀░▀▀█░█▀█░░█░░░█░░▀▄▀░█▀█░█░█░█░█
 ░▀▀░░▀▀▀░▀▀▀░▀░▀░░▀░░▀▀▀░░▀░░▀░▀░▀▀░░▀▀▀
 
-[![Assista no Loom](thumbnail.jpg)](https://i.imgur.com/9YpFVeD.mp4)
+[](https://imgur.com/9YpFVeD)
