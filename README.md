@@ -2,4 +2,4 @@
 ░█░█░█▀▀░▀▀█░█▀█░░█░░░█░░▀▄▀░█▀█░█░█░█░█
 ░▀▀░░▀▀▀░▀▀▀░▀░▀░░▀░░▀▀▀░░▀░░▀░▀░▀▀░░▀▀▀
 
-![Uso Rápido](https://imgur.com/a/CK1bEIm) *(2MB)*
+![Uso Rápido](https://i.imgur.com/9YpFVeD.gif) *(2MB)*
